@@ -1,12 +1,22 @@
- const getHomePage = (req, res) => {
-    return res.render('HomePage.ejs')
-}
+import db from '../models/index';
 
- const getAboutPage = (req, res) => {
-    return res.render('test/aboutPage.ejs')
-}
+const getHomePage = async (req, res) => {
+    try {
+        const data = await db.User.findAll();
 
-module.exports ={
+        return res.render('HomePage.ejs', {
+            data: JSON.stringify(data),
+        });
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+const getAboutPage = (req, res) => {
+    return res.render('test/aboutPage.ejs');
+};
+
+module.exports = {
     getHomePage: getHomePage,
-    getAboutPage:getAboutPage
-}
+    getAboutPage: getAboutPage,
+};

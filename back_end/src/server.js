@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 
 import ViewEngine from './config/viewEngine';
 import initWebRoutes from './route/web';
+import connectDB from './config/connectDB';
 
 require('dotenv').config();
 
@@ -16,6 +17,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 ViewEngine(app);
 initWebRoutes(app);
+
+connectDB();
 
 // lay tham so PORT trong file .env
 const port = process.env.PORT || 3000;
