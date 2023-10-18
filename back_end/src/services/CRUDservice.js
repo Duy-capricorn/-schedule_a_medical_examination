@@ -69,6 +69,7 @@ const getUserInfoById = (userId) => {
     });
 };
 
+// Update database User
 const updateUserData = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -94,10 +95,29 @@ const updateUserData = (data) => {
     });
 };
 
+const deleteUserById = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const user = await db.User.findOne({
+                where: { id: userId },
+            });
+            if (user) {
+                await user.destroy();
+            }
+
+            // return;
+            resolve();
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
 module.exports = {
     create_new_user: create_new_user,
     hashUserPassword: hashUserPassword,
     getAllUser: getAllUser,
     getUserInfoById: getUserInfoById,
     updateUserData: updateUserData,
+    deleteUserById: deleteUserById,
 };
